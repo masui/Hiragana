@@ -2,5 +2,5 @@
 
 <pre>
 % make
-% ruby hiragana.rb
+% make test
 </pre>

@@ -32,10 +32,11 @@ def hiragana(text)
   s.tr(kata,hira)
 end
 
-ARGF.each { |line|
-  line.chomp!
-  puts hiragana(line)
-}
-
+if $0 == __FILE__ then
+  ARGF.each { |line|
+    line.chomp!
+    puts hiragana(line)
+  }
+end
 
 
