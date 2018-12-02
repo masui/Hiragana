@@ -1,25 +1,23 @@
 require 'json'
 
-def kata2hira(s)
-  hira = "あいうえおぁぃぅぇぉかきくけこがぎぐげご" +
-         "さしすせそざじずぜぞたちつてとだぢづでどっなにぬねの" +
-         "はひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよゃゅょ" +
-         "らりるれろわをんー"
-  kata = "アイウエオァィゥェォカキクケコガギグゲゴ" +
-         "サシスセソザジズゼゾタチツテトダヂヅデドッナニヌネノ" +
-         "ハヒフヘホバビブベボパピプペポマミムメモヤユヨャュョ" +
-         "ラリルレロワヲンー"
-  s.tr(kata,hira)
-end
-
 def hiragana(text)
   @entries = JSON.parse(File.read("dict.json")) unless @entries
+  hira = "あいうえおぁぃぅぇぉかきくけこがぎぐげご" +
+          "さしすせそざじずぜぞたちつてとだぢづでどっなにぬねの" +
+          "はひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよゃゅょ" +
+          "らりるれろわをんー"
+  kata = "アイウエオァィゥェォカキクケコガギグゲゴ" +
+          "サシスセソザジズゼゾタチツテトダヂヅデドッナニヌネノ" +
+          "ハヒフヘホバビブベボパピプペポマミムメモヤユヨャュョ" +
+          "ラリルレロワヲンー"
   s = ''
   while text != '' do
     processed = false
-    if @entries[text[0]] && text[0] !~ /\w/ then
-      @entries[text[0]].each { |entry|
-        if text.sub!(/^#{entry[0]}/,'') then
+    c = text[0]
+    if @entries[c] && c !~ /\w/ && !hira.index(c) && !kata.index(c) then
+      @entries[c].each { |entry|
+        if text.index(entry[0]) == 0 then
+	  text = text[entry[0].length..-1]
           s += entry[1]
           processed = true
           break
@@ -31,7 +29,7 @@ def hiragana(text)
       text.sub!(/^./,'')
     end
   end
-  kata2hira(s)
+  s.tr(kata,hira)
 end
 
 ARGF.each { |line|
