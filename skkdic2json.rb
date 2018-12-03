@@ -35,6 +35,7 @@ entries = {}
 ARGF.each { |line|
   line.chomp!
   next if line =~ /^\s*;/
+  next if line =~ /^>/
   (yomi, wordlist) = line.split
   wordlist.sub(/^\//,'').sub(/\/$/,'').split(/\//).map { |s|
     s.sub(/;.*/,'')
