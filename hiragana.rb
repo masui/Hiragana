@@ -12,19 +12,19 @@ def hiragana(text)
           "ラリルレロワヲンー"
   s = ''
   while text != '' do
-    processed = false
+    found = false
     c = text[0]
     if @entries[c] && c !~ /\w/ && !hira.index(c) && !kata.index(c) then
       @entries[c].each { |entry|
         if text.index(entry[0]) == 0 then
 	  text = text[entry[0].length..-1]
           s += entry[1]
-          processed = true
+          found = true
           break
         end
       }
     end
-    unless processed
+    unless found
       s += text[0]
       text.sub!(/^./,'')
     end
