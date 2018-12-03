@@ -56,7 +56,6 @@ entries.each { |c,wordlist|
 }
 
 require 'json'
-File.open("dict.json","w"){ |f|
-  f.puts entries.to_json
-}
+
+puts entries.to_json
 
